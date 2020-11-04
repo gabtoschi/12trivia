@@ -1,0 +1,12 @@
+<div class="card" (click)="clickCard()">
+  <div
+    class="card-body"
+    [ngClass]="{
+      'bg-success': trivia.status === status.RIGHT,
+      'bg-danger': trivia.status === status.WRONG,
+      'text-white': trivia.status === status.RIGHT || trivia.status === status.WRONG
+    }"
+  >
+    <p class="card-text">{{ trivia.trivia }}</p>
+  </div>
+</div>
