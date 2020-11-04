@@ -21,6 +21,7 @@
     "paths": {
       "@models": ["src/app/models"],
       "@utils": ["src/app/utils"],
+      "@services": ["src/app/services"],
     },
   },
   "angularCompilerOptions": {
