@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NumberTrivia, NumberTriviaStatus } from '@models';
-import { shuffleArray } from '@utils';
+import { tap } from 'rxjs/operators';
+
+import { NumberTrivia, NumberTriviaStatus, TriviaAPIResult } from '@models';
+import { TriviaService } from '@services';
+import { getRandomInt, shuffleArray } from '@utils';
 
 
 @Component({
@@ -10,18 +13,20 @@ import { shuffleArray } from '@utils';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  triviaAmount = 9;
+  triviaMax = 100;
+
   currentTrivia = 0;
 
-  allTrivia: NumberTrivia[] = [
-    { num: '1', trivia: 'one', status: NumberTriviaStatus.NOT_ANSWERED },
-    { num: '23', trivia: 'two three', status: NumberTriviaStatus.NOT_ANSWERED },
-    { num: '456', trivia: 'four five six', status: NumberTriviaStatus.NOT_ANSWERED },
-    { num: '7890', trivia: 'seven eight nine zero', status: NumberTriviaStatus.NOT_ANSWERED },
-  ];
+  allTrivia: NumberTrivia[] = [];
   shuffledTrivia: NumberTrivia[] = [];
 
   showResults = false;
   rightAnswers: number;
+
+  constructor(
+    private readonly triviaService: TriviaService,
+  ) { }
 
   ngOnInit() {
     this.reset();
@@ -56,8 +61,34 @@ export class AppComponent implements OnInit {
     this.showResults = true;
   }
 
+  getTrivia() {
+    const numbersToGetTrivia = [];
+
+    for (let i = 0; i < this.triviaAmount; i++) {
+      numbersToGetTrivia.push(getRandomInt(0, this.triviaMax));
+    }
+
+    this.triviaService.getTrivia(numbersToGetTrivia).pipe(
+      tap(response => {
+        this.mapTriviaFromAPI(response);
+        this.configGame();
+      })
+    ).subscribe();
+  }
+
+  mapTriviaFromAPI(response: TriviaAPIResult) {
+    this.allTrivia = Object.keys(response).map(num => ({
+      num,
+      trivia: response[num],
+      status: NumberTriviaStatus.NOT_ANSWERED,
+    }));
+  }
+
   reset() {
-    this.allTrivia.forEach(trivia => trivia.status = NumberTriviaStatus.NOT_ANSWERED);
+    this.getTrivia();
+  }
+
+  configGame() {
     this.currentTrivia = 0;
 
     this.shuffledTrivia = [...this.allTrivia];
