@@ -1,0 +1,23 @@
+<ng-container *ngIf="!showResults; else resultScreen">
+  <div class="d-flex justify-content-around mt-4">
+    <app-number-indicator *ngFor="let trivia of allTrivia" [trivia]="trivia"></app-number-indicator>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3">
+    <div *ngFor="let trivia of shuffledTrivia" class="col mt-3">
+      <app-trivia-card [trivia]="trivia" (chosenCard)="testCard($event)"></app-trivia-card>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #resultScreen>
+  <div class="text-center">
+    <h4>Results!</h4>
+    <p><b class="text-success">RIGHT ANSWERS:</b> {{ rightAnswers }}</p>
+    <p><b class="text-danger">WRONG ANSWERS:</b> {{ allTrivia.length - rightAnswers }}</p>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-primary" (click)="reset()">Play Again</button>
+  </div>
+</ng-template>

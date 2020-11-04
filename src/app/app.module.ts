@@ -6,13 +6,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NumberIndicatorComponent } from './components/number-indicator/number-indicator.component';
 import { TriviaCardComponent } from './components/trivia-card/trivia-card.component';
+import { GameComponent } from './components/game/game.component';
+import { InstructionsComponent } from './components/instructions/instructions.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NumberIndicatorComponent,
-    TriviaCardComponent
+    TriviaCardComponent,
+    GameComponent,
+    InstructionsComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
