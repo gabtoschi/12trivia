@@ -3,7 +3,7 @@
     <app-number-indicator *ngFor="let trivia of allTrivia" [trivia]="trivia"></app-number-indicator>
   </div>
 
-  <div class="row row-cols-1 row-cols-md-3">
+  <div class="row row-cols-1 row-cols-md-3 mb-3">
     <div *ngFor="let trivia of shuffledTrivia" class="col mt-3">
       <app-trivia-card [trivia]="trivia" (chosenCard)="testCard($event)"></app-trivia-card>
     </div>

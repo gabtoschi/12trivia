@@ -9,7 +9,8 @@ import { InstructionsComponent } from './components/instructions/instructions.co
 const routes: Routes = [
   { path: 'instructions', component: InstructionsComponent },
   { path: 'about', component: AboutComponent },
-  { path: '', component: GameComponent },
+  { path: 'play', component: GameComponent },
+  { path: '', redirectTo: '/play', pathMatch: 'full' },
 ];
 
 @NgModule({

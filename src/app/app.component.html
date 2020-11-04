@@ -2,9 +2,12 @@
   <h1 class="text-center font-weight-bold mb-4">1-2-Trivia</h1>
 
   <nav class="nav nav-pills nav-fill">
-    <a class="nav-item nav-link" routerLink="/">Play Game</a>
-    <a class="nav-item nav-link" routerLink="/instructions">Instructions</a>
-    <a class="nav-item nav-link" routerLink="/about">About</a>
+    <a
+      *ngFor="let button of navigationButtons"
+      class="nav-item nav-link"
+      [routerLink]="button.routerUrl"
+      routerLinkActive="active"
+    >{{ button.displayName }}</a>
   </nav>
 
   <hr>
