@@ -1,21 +1,37 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container mt-3">
+  <h1 class="text-center font-weight-bold mb-4">1-2-Trivia</h1>
 
-<router-outlet></router-outlet>
+  <ng-container *ngIf="!showResults; else resultScreen">
+    <div class="text-center">
+      <h4>How to Play</h4>
+      <p>Click in the card that contains a true trivia for the number shown until all the numbers were selected.</p>
+    </div>
+
+    <hr>
+
+    <div class="d-flex justify-content-around mt-4">
+      <app-number-indicator *ngFor="let trivia of allTrivia" [trivia]="trivia"></app-number-indicator>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3">
+      <div *ngFor="let trivia of shuffledTrivia" class="col mt-3">
+        <app-trivia-card [trivia]="trivia" (chosenCard)="testCard($event)"></app-trivia-card>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #resultScreen>
+  <div class="text-center">
+    <h4>Results!</h4>
+    <p><b class="text-success">RIGHT ANSWERS:</b> {{ rightAnswers }}</p>
+    <p><b class="text-danger">WRONG ANSWERS:</b> {{ allTrivia.length - rightAnswers }}</p>
+  </div>
+
+  <hr>
+
+  <div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-primary" (click)="reset()">Play Again</button>
+  </div>
+
+</ng-template>

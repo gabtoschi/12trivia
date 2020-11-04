@@ -1,0 +1,11 @@
+<span
+  class="badge badge-pill mx-2"
+  [ngClass]="{
+    'badge-secondary': trivia.status === status.NOT_ANSWERED,
+    'badge-primary': trivia.status === status.ACTUAL,
+    'badge-success': trivia.status === status.RIGHT,
+    'badge-danger': trivia.status === status.WRONG
+  }"
+>
+  {{ trivia.num }}
+</span>
