@@ -10,3 +10,7 @@ export interface NumberTrivia {
   trivia: string;
   status: NumberTriviaStatus;
 }
+
+export interface TriviaAPIResult {
+  [num: string]: string;
+}
